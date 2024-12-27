@@ -1,3 +1,7 @@
+NAME : Sitharth.B.S
+
+REG NO: 24900657
+
 # Monitoring-distance-value-in-Thing-speak-cloud-using-ultrasonic-sensor-and-ESP32-controller
 
 # Uploading ultrasonic sensor data in Thing Speak cloud
@@ -96,8 +100,69 @@ Prototype and build IoT systems without setting up servers or developing web sof
 
  
 # PROGRAM:
+```
+#include "ThingSpeak.h"
+#include <WiFi.h>
+
+char ssid[] = "Pooja'sS23FE";
+char pass[] = "Pooja@2006""; 
+
+
+const int trigger = 25;
+const int echo = 26;
+long T;
+float distanceCM;
+WiFiClient  client;
+
+unsigned long myChannelField = 2794381; 
+const int ChannelField = 1;
+const char * myWriteAPIKey = "A5RJG4UE90PVJBYT"; 
+
+void setup()
+{
+  Serial.begin(115200);
+  pinMode(trigger, OUTPUT);
+  pinMode(echo, INPUT);
+  WiFi.mode(WIFI_STA);
+  ThingSpeak.begin(client);
+}
+void loop()
+{
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    Serial.print("Attempting to connect to SSID: ");
+    Serial.println(ssid);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      WiFi.begin(ssid, pass);
+      Serial.print(".");
+      delay(5000);
+    }
+    Serial.println("\nConnected.");
+  }
+  digitalWrite(trigger, LOW);
+  delay(1);
+  digitalWrite(trigger, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigger, LOW);
+  T = pulseIn(echo, HIGH);
+  distanceCM = T * 0.034;
+  distanceCM = distanceCM / 2;
+  Serial.print("Distance in cm: ");
+  Serial.println(distanceCM);
+  ThingSpeak.writeField(myChannelField, ChannelField, distanceCM, myWriteAPIKey);
+  delay(1000);
+}
+```
 # CIRCUIT DIAGRAM:
+![Screenshot 2024-12-27 214445](https://github.com/user-attachments/assets/b4835065-4822-41cc-828e-af10cf8e6ddd)
+
 # OUTPUT:
+![image](https://github.com/user-attachments/assets/4b370763-a0c8-4ef5-860d-5d559ce2d803)
+
+![image](https://github.com/user-attachments/assets/6aaa9afa-060f-4590-bf46-42f671a91bd6)
+
+
 # RESULT:
 Thus the distance values are updated in the Thing speak cloud using ESP32 controller.
 
