@@ -2,7 +2,7 @@ NAME : Sitharth.B.S
 
 REG NO: 24900657
 
-# EXP NO-6 Monitoring-distance-value-in-Thing-speak-cloud-using-ultrasonic-sensor-and-ESP32-controller
+# EXP NO-6 Monitoring distance value in Thing speakbcloud using ultrasonic sensor and ESP32 controller
 
 # Uploading ultrasonic sensor data in Thing Speak cloud
 
